@@ -1,1 +1,1 @@
-web: gunicorn --chdir src main:app
+web: gunicorn --chdir src --bind 0.0.0.0:3003 main:app

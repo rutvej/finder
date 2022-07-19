@@ -9,4 +9,4 @@ app.register_blueprint(user_api)
 app.register_blueprint(conn_api)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=3003,debug=True)
