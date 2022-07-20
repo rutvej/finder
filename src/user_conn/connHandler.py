@@ -16,7 +16,6 @@ conn_api = Blueprint("user_con",__name__)
 def showlist(username,role,user_id): 
     swipe = db.session.query(UserConnections.to_id).filter(UserConnections.user_name == username,UserConnections.action == True).distinct().all()
     lis = [i[0] for i in swipe]
-    print(lis)
     res = User.query.filter(User.role != role,User.user_id.not_in(lis)).all()
     return jsonify([r.to_json() for r in res])
 
