@@ -25,7 +25,7 @@ def showlist(username,role,user_id):
 def user_action(username,role,user_id,action):
     try:
         data = request.json
-        check = UserConnections.query.filter(UserConnections.user_name == data["username"],UserConnections.to_id == user_id).all()
+        check = UserConnections.query.filter(UserConnections.user_name == data["username"],UserConnections.to_id == user_id,UserConnections.action == True).all()
         action_data= UserConnections(user_name=username,
                                     action= True if action == "right" else False,
                                     to_id=data["to_id"]) 

@@ -11,7 +11,7 @@ user_api = Blueprint("user",__name__)
 def createUser():
     try:
         data = request.json
-        u = User(user_name=data["username"],docs=data.get("docs","N/A"),role=data.get("role","candidate"))
+        u = User(user_name=data["username"],docs=data.get("docs","N/A"),role=data.get("role","candidate").upper())
         u.set_password(data["password"])
         db.session.add(u)
         db.session.commit()
