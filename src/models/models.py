@@ -35,6 +35,6 @@ class UserConnections(db.Model):
     Tid = db.Column(db.Integer,primary_key=True)
     user_name = db.Column(db.String(80),db.ForeignKey("user.user_name"))
     action = db.Column(db.Boolean)
-    to_id = db.Column(db.Integer,db.ForeignKey("user.user_id"))
+    to_id = db.Column(db.Integer)
 
 
