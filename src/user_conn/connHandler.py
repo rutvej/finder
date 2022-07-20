@@ -14,8 +14,9 @@ conn_api = Blueprint("user_con",__name__)
 @conn_api.route("/Showlist",methods=["GET"])
 @token_validation
 def showlist(username,role,user_id): 
-    swipe = db.session.query(UserConnections.to_id).filter(UserConnections.user_name == username).distinct().all()
+    swipe = db.session.query(UserConnections.to_id).filter(UserConnections.user_name == username,UserConnections.action == True).distinct().all()
     lis = [i[0] for i in swipe]
+    print(lis)
     res = User.query.filter(User.role != role,User.user_id.not_in(lis)).all()
     return jsonify([r.to_json() for r in res])
 
@@ -25,7 +26,7 @@ def showlist(username,role,user_id):
 def user_action(username,role,user_id,action):
     try:
         data = request.json
-        check = UserConnections.query.filter(UserConnections.user_name == data["username"],UserConnections.to_id == user_id,UserConnections.action == True).all()
+        check = UserConnections.query.filter(UserConnections.user_name == data["username"],UserConnections.to_id == user_id,).all()
         action_data= UserConnections(user_name=username,
                                     action= True if action == "right" else False,
                                     to_id=data["to_id"]) 
