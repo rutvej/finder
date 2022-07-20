@@ -35,8 +35,7 @@ def user_action(username,role,user_id,action):
         return {"error":"Already Swipe " + action}
 
 @conn_api.route("/fileupload",methods=["POST"])
-@token_validation
-def fileupload(username,role,user_id):
+def fileupload():
     try:
         files = request.files["file"]
         github = Github(os.getenv("GITKEY"))
@@ -47,7 +46,7 @@ def fileupload(username,role,user_id):
         return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+filename}
     except Exception as e:
         print(e)
-        return {"error":"Already Swipe "}
+        return {"error":str(e)}
 
 
 

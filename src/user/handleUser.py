@@ -41,8 +41,13 @@ def login():
         
 @user_api.route("/editUser",methods=["POST"])
 @token_validation
-def editUser():
-    return {}
+def editUser(username,role,user_id):
+    data = request.json
+    u = User.query.filter(User.user_id == user_id).first()
+    u.docs = data["url"]
+    db.session.add(u)
+    db.session.commit()
+    return {"status":"ok"}
 
 
 
