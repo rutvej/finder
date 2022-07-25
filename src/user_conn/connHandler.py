@@ -14,11 +14,14 @@ conn_api = Blueprint("user_con",__name__)
 @conn_api.route("/Showlist",methods=["GET"])
 @token_validation
 def showlist(username,role,user_id): 
-    swipe = db.session.query(UserConnections.to_id).filter(UserConnections.user_name == username,UserConnections.action == True).distinct().all()
-    lis = [i[0] for i in swipe]
-    res = User.query.filter(User.role != role,User.user_id.not_in(lis)).all()
-    return jsonify([r.to_json() for r in res])
-
+    try:
+        swipe = db.session.query(UserConnections.to_id).filter(UserConnections.user_name == username,UserConnections.action == True).distinct().all()
+        lis = [i[0] for i in swipe]
+        res = User.query.filter(User.role != role,User.user_id.not_in(lis)).all()
+        return jsonify([r.to_json() for r in res])
+    except Exception as e:
+        print(e)
+        return {"error":"data not found"} ,400
 
 @conn_api.route("/action/<action>",methods=["POST"])
 @token_validation
@@ -37,7 +40,7 @@ def user_action(username,role,user_id,action):
         return {"status":"ok"}
     except Exception as e:
         print(e)
-        return {"error":"Already Swipe " + action}
+        return {"error":"Already Swipe " + action} ,400
 
 @conn_api.route("/fileupload",methods=["POST"])
 @token_validation
@@ -52,7 +55,7 @@ def fileupload(username,role,user_id):
         return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+filename}
     except Exception as e:
         print(e)
-        return {"error":str(e)}
+        return {"error":str(e)} ,400
 
 
 

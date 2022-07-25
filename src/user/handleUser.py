@@ -18,7 +18,7 @@ def createUser():
         return {"status":"success"}
     except Exception as e:
         print(e)
-        return {"error":"User Already Exist"}
+        return {"error":"User Already Exist"},400
 
 @user_api.route("/generateToken",methods=["POST"])
 def login():
@@ -34,7 +34,7 @@ def login():
             token = encode(data,key="secret")
             return {"access_token":token}
         else:
-            return {"error":"Wrong Credentials"}
+            return {"error":"Wrong Credentials"},400
     except Exception as e:
         print(e)
         return {"error":"Wrong Credentials"}
@@ -51,7 +51,7 @@ def editUser(username,role,user_id):
         return {"status":"ok"}
     except Exception as e:
         print(e)
-        return {"error":"failed"}
+        return {"error":"failed"},400
 
 
 
