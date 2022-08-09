@@ -54,7 +54,7 @@ def fileupload(username,role,user_id):
             alread = repo.get_contents(username+filename[1])
             repo.update_file(username+filename[1],"update"+username,files.read(),alread.sha)
         except:
-            repo.create_file(filename,"adding new file",files.read())
+            repo.create_file(username+filename[1],"adding new file",files.read())
         return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+username+filename[1]}
     except Exception as e:
         print(e)

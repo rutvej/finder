@@ -32,7 +32,7 @@ def login():
             data["user_id"] = u.user_id
             print(data)
             token = encode(data,key="secret")
-            return {"access_token":token}
+            return {"access_token":token,"docs_link":u.docs}
         else:
             return {"error":"Wrong Credentials"},400
     except Exception as e:
