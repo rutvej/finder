@@ -45,7 +45,22 @@ def editUser(username,role,user_id):
     try:
         data = request.json
         u = User.query.filter(User.user_id == user_id).first()
-        u.docs = data["url"]
+        u.docs = data["url"] if data.get("url") else u.docs
+        u.docs = data["username"] if data.get("username") else u.user_name
+        db.session.add(u)
+        db.session.commit()
+        return {"status":"ok"}
+    except Exception as e:
+        print(e)
+        return {"error":"failed"},400
+
+@user_api.route("/resetPassword",methods=["POST"])
+@token_validation
+def editUser(username,role,user_id):
+    try:
+        data = request.json
+        u = User.query.filter(User.user_id == user_id).first()
+        u.set_password(data["password"])
         db.session.add(u)
         db.session.commit()
         return {"status":"ok"}

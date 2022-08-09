@@ -49,13 +49,13 @@ def fileupload(username,role,user_id):
         files = request.files["file"]
         github = Github(os.getenv("GITKEY"))
         repo = github.get_user().get_repo("images")
-        filename = files.filename.split('.')
+        filename = username+"."+files.filename.split('.')
         try:
-            alread = repo.get_contents(username+filename[1])
-            repo.update_file(username+filename[1],"update"+username,files.read(),alread.sha)
+            alread = repo.get_contents(filename)
+            repo.update_file(filename,"update"+username,files.read(),alread.sha)
         except:
-            repo.create_file(username+filename[1],"adding new file",files.read())
-        return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+username+filename[1]}
+            repo.create_file(filename,"adding new file",files.read())
+        return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+filename}
     except Exception as e:
         print(e)
         return {"error":str(e)} ,400
