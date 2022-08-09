@@ -56,7 +56,7 @@ def editUser(username,role,user_id):
 
 @user_api.route("/resetPassword",methods=["POST"])
 @token_validation
-def editUser(username,role,user_id):
+def resetPass(username,role,user_id):
     try:
         data = request.json
         u = User.query.filter(User.user_id == user_id).first()
