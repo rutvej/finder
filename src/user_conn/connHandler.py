@@ -55,6 +55,10 @@ def fileupload(username,role,user_id):
             repo.update_file(filename,"update"+username,files.read(),alread.sha)
         except:
             repo.create_file(filename,"adding new file",files.read())
+        u = User.query.filter(User.user_id == user_id).first()
+        u.docs = "https://raw.githubusercontent.com/rutvej/images/main/"+filename
+        db.session.add(u)
+        db.session.commit()
         return {"status":"ok","url":"https://raw.githubusercontent.com/rutvej/images/main/"+filename}
     except Exception as e:
         print(e)
