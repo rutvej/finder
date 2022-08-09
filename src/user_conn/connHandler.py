@@ -49,7 +49,7 @@ def fileupload(username,role,user_id):
         files = request.files["file"]
         github = Github(os.getenv("GITKEY"))
         repo = github.get_user().get_repo("images")
-        filename = username+"."+files.filename.split('.')
+        filename = username+"."+files.filename.split('.')[1]
         try:
             alread = repo.get_contents(filename)
             repo.update_file(filename,"update"+username,files.read(),alread.sha)
