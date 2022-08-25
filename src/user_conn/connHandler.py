@@ -67,5 +67,11 @@ def fileupload(username,role,user_id):
 
 
 
-
-    
+@conn_api.route("/reset",methods=["POST"])
+def reset_table():
+    try:
+        UserConnections.query.delete()
+        return {"status":"ok"}
+    except Exception as e:
+        print(e)
+        return {"error":str(e)} ,400
