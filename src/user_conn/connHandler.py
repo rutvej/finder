@@ -67,10 +67,10 @@ def fileupload(username,role,user_id):
 
 
 
-@conn_api.route("/reset",methods=["POST"])
-def reset_table():
+@conn_api.route("/reset/<table>",methods=["POST"])
+def reset_table(table):
     try:
-        db.session.execute('''TRUNCATE TABLE user_connections''')
+        db.session.execute('''TRUNCATE TABLE {}'''.format(table))
         db.session.commit()
         return {"status":"ok"}
     except Exception as e:
