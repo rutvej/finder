@@ -23,6 +23,17 @@ def showlist(username,role,user_id):
         print(e)
         return {"error":"data not found"} ,400
 
+# @conn_api.route("/matches",methods=["GET"])
+# @token_validation
+# def matches(username,role,user_id): 
+#     try:
+#         matches = User.query.fliter(UserConnections.user_name == username).all()
+#         lis = [i[0] for i in matches]
+#         res = User.query.filter(User.role != role,User.user_id.not_in(lis)).all()
+#         return jsonify([r.to_json() for r in res])
+#     except Exception as e:
+#         print(e)
+#         return {"error":"data not found"} ,400
 @conn_api.route("/action/<action>",methods=["POST"])
 @token_validation
 def user_action(username,role,user_id,action):

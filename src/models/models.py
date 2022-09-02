@@ -11,6 +11,7 @@ class User(db.Model):
     docs = db.Column(db.String(255),nullable=True)
     role = db.Column(db.String(80),nullable=False)
     password = db.Column(db.String(255),nullable=False)
+    # matches = db.Column(db.String(255),nullable=False)
 
     # user_conn = db.relationship("User_Connections",foreign_keys='User.user_id')
     # user_conn = db.relationship("User_Connections",foreign_keys='User.user_name')
