@@ -18,8 +18,8 @@ db = SQLAlchemy(app)
 
 
 def create_app():
-    sched = BackgroundScheduler(daemon=True)
-    sched.add_job(sensor,'interval',seconds=6)
-    sched.start()
+    # sched = BackgroundScheduler(daemon=True)
+    # sched.add_job(sensor,'interval',seconds=6)
+    # sched.start()
     # db.create_all()
     return app
